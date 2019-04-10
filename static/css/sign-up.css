@@ -5,7 +5,7 @@ body {
 	background-image: url(../images/login%20page.jpg);
 	background-attachment: fixed;
 	background-size: cover;
-	
+
 }
 #form {
 	text-align: center;
@@ -46,6 +46,7 @@ input{
 	width: 100px;
 	height: 35px;
 	margin-left: 25px;
+	border-radius: 10px;
 	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
 	font-style: normal;
 	color: #000000;
@@ -53,8 +54,8 @@ input{
 	font-weight: bolder;
 }
 
-::placeholder { 
+::placeholder {
 font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
 font-style: normal;
-color: grey;  
+color: grey;
 }
