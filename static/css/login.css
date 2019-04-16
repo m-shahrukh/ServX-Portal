@@ -1,0 +1,84 @@
+@charset "utf-8";
+
+
+body { 
+  background-image: url(../images/logo.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 51.5% 0%; 
+  background-size: 400px 350px;
+}
+
+
+#form {
+	text-align: center;
+	-webkit-box-shadow: 0px 0px 0px;
+	box-shadow: 0px 0px 0px;
+	height: 500px;
+	width: 300px;
+	margin-top: 350px;
+	margin-left: 50px;
+}
+
+input{
+	margin-top: 30px;
+	border-radius: 5px;
+}
+#input1 {
+	text-align: center;
+	margin-right: 0px;
+	width: 100px;
+	height: 35px;
+	float: left;
+	padding-left: 0px;
+	margin-left: 26px;
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	color: #000000;
+	font-weight: bolder;
+	border-radius: 5px;
+}
+#div1 {
+}
+#userpass {
+	width: 250px;
+	height: 35px;
+	text-shadow: 0px 0px;
+	border: 0px inset #000000;
+	text-align: 2px;
+}
+#input2 {
+	width: 100px;
+	height: 35px;
+	margin-left: 25px;
+	font-family: Segoe, "Segoe UI";
+	font-style: "Segoe";
+	color: #000000;
+	text-align: center;
+	font-weight: bolder;
+	border-radius: 5px;
+}
+
+::placeholder {
+font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+font-style: "Segoe";
+color: grey;
+}
+
+
+input[type=text] {
+  background-color: #E2E2E2;
+  color: black;
+  font-family: : "Segoe UI";
+  font-size: 14px; 
+  padding-right: 10px;
+  padding-left: 10px;
+
+}
+input[type=password]{
+  background-color: #E2E2E2;
+  color: black;
+  font-family: "Segoe UI";
+  font-size: 14px; 
+  padding-right: 10px;
+  padding-left: 10px;
+}
