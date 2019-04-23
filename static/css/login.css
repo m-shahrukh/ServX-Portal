@@ -6,7 +6,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 51.5% 0%; 
-  background-size: 400px 350px;
+  background-size: 488px 358px;
 }
 
 
@@ -14,10 +14,12 @@ body {
 	text-align: center;
 	-webkit-box-shadow: 0px 0px 0px;
 	box-shadow: 0px 0px 0px;
-	height: 500px;
+	height: 50px;
 	width: 300px;
 	margin-top: 350px;
 	margin-left: 50px;
+	 background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 input{
@@ -31,7 +33,7 @@ input{
 	height: 35px;
 	float: left;
 	padding-left: 0px;
-	margin-left: 26px;
+	margin-left: 14px;
 	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
 	color: #000000;
 	font-weight: bolder;
@@ -49,7 +51,7 @@ input{
 #input2 {
 	width: 100px;
 	height: 35px;
-	margin-left: 25px;
+	margin-left: 55px;
 	font-family: Segoe, "Segoe UI";
 	font-style: "Segoe";
 	color: #000000;

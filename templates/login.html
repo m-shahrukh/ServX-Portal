@@ -10,16 +10,32 @@
 
 <body>
 <center>
+
+
 <form id="form">
 
    <div>
+<br>
+
+
 
   <input type="text" name="user" id="userpass" class="form-control" placeholder="Mobile Number"  required autofocus></div>
   <div><input type="password" name="pass" id= "userpass" placeholder="Password" required autofocus></div>
 <div id="div1">
      <input type="submit" name= "inp1" id="input1" value="LOG IN" formaction="/homepage" formmethod="post">
+
    <input type="submit" name="inp2" id="input2" value= "SIGN UP" formaction="/signuppage" formnovalidate> </div>
+   <br>
+   <br>
+   	<div style="color: red">
+	{% if us %}
+{{us}}
+{% endif %}
+
+</div>
 </form>
+
+
 </center>
 </body>
 </html>
