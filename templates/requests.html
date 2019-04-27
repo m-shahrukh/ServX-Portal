@@ -69,9 +69,9 @@ h2 span {
   border-radius: 15px;
  
   background: #eeeeee;
-  padding: 20px; 
-  width: 400px;
-  height: 60px;
+  padding: 10px; 
+  width: 500px;
+  height: 85px;
   margin-left: 50px 
 } 
 /*input {
@@ -118,19 +118,33 @@ h2 span {
 <h2><span>Requests</span></h2>
 
 <form action="/requests1" method="post">
-<input type="radio" name="dec" value="decline"  />Decline &nbsp; &nbsp;
-<input type="radio" name="dec" value="accept" /> Accept &nbsp; &nbsp;
-<input type="radio" name="dec" value="reshedule"  /> Reshedule
-<input type="submit" name="button"> 
+{% if numbers%}
+{% for i in range(length_numbers) %}
+<p id="rcorners4">
 
+Mobile number: {{numbers[i]}}
+</br>
+Oil: {{oil[i]}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+Wash: {{wash[i]}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+Location: {{location[i]}}&nbsp; &nbsp;
+</br>
+Date: {{date[i]}} &nbsp; &nbsp;
+Time: {{time[i]}}
+</br>
 
-<!--   <div style="margin-left:40px;">
-<a class="button " type="submit" href="{{url_for('Requestpage1')}}"  >Submit</a>
-</div> -->
+<input type="radio" name="dec{{i}}" value="decline"  />Decline &nbsp; &nbsp;
+<input type="radio" name="dec{{i}}" value="accept" /> Accept &nbsp; &nbsp;
+<!-- <input type="radio" name="dec{{i}}" value="reshedule"  /> Reshedule -->
+<!-- <input type="submit" name="button">  -->
 
-
+ {% endfor %}
+ <div style="margin-left:40px;">
+<input type="submit">
+</div>
 </form>
+</p>
 
+ {% endif %}
 
 </body>
 </html>
