@@ -9,7 +9,7 @@ global length_requests
 
 @app.route("/signuppage")
 def signup():
-    return render_template('signup.html')
+	return render_template('signup.html')
 
 @app.route("/requests")
 def Requestpage():
@@ -39,48 +39,48 @@ def Requestpage():
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                a=requests[mobile_keys[i]][j]['date']
-                numbers.append(mobile_keys[i])
-                date.append(a)
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
+	    		a=requests[mobile_keys[i]][j]['date']
+	    		numbers.append(mobile_keys[i])
+	    		date.append(a)
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
 
-                a=requests[mobile_keys[i]][j]['time']
-                time.append(a)
+	    		a=requests[mobile_keys[i]][j]['time']
+	    		time.append(a)
 
     length_numbers=len(date)
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                a=requests[mobile_keys[i]][j]['oil']
-                oil.append(a)
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
+	    		a=requests[mobile_keys[i]][j]['oil']
+	    		oil.append(a)
 
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                a=requests[mobile_keys[i]][j]['wash']
-                wash.append(a)
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
+	    		a=requests[mobile_keys[i]][j]['wash']
+	    		wash.append(a)
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                a=requests[mobile_keys[i]][j]['location']
-                location.append(a)
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
+	    		a=requests[mobile_keys[i]][j]['location']
+	    		location.append(a)
 
 
 
@@ -103,10 +103,10 @@ def Requestpage1():
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                numbers.append(mobile_keys[i])
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
+    			numbers.append(mobile_keys[i])
 
 
 
@@ -120,13 +120,13 @@ def Requestpage1():
     index=0
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                if decision[index]!=None:
-                    firebase1.put('requests/'+str(mobile_keys[i])+'/'+str(j),'status',decision[index])
-                index=index+1
-            
+    	keys_person= requests[mobile_keys[i]].keys()
+    	for j in keys_person:
+    		if j!='"0"':
+    			if decision[index]!=None:
+	    			firebase1.put('requests/'+str(mobile_keys[i])+'/'+str(j),'status',decision[index])
+	    		index=index+1
+    		
 
 
     return "<h1>%s</h1>"%str(decision)
