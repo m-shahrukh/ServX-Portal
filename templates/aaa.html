@@ -118,18 +118,68 @@ h2 span {
 <h2><span>Requests</span></h2>
 
 <form action="/requests1" method="post">
+
+{% if numbers%}
+{% for i in range(length_numbers) %}
+<p id="rcorners4">
+
+Date: {{date[i]}}
+</br>
+Time: {{time[i]}}
+
+
+<br>
+
+
 <input type="radio" name="dec" value="decline"  />Decline &nbsp; &nbsp;
 <input type="radio" name="dec" value="accept" /> Accept &nbsp; &nbsp;
 <input type="radio" name="dec" value="reshedule"  /> Reshedule
-<input type="submit" name="button"> 
+
+
+<!-- <button type="submit"><span style="color:grey; font-size:15px; background: white;" ><b>Accept</b></button>
+  <label for="email"></label> -->
+
+<!--   <div>
+  <input  type="text" name="decision" placeholder="      Decision" required autofocus></div> -->
+
+  <!-- <button type="submit"><span style="color:grey;font-size:15px;" ><b>Decline</b></button> -->
+
+<!-- <div class="textbox">
+  <input  type="text" name="decision" id="userpass" class="form-control" placeholder="decision"  required autofocus></div>
+ -->
+
+{%if i==length_numbers-1 %}
+  <div style="margin-left:40px;">
+<a class="button " type="submit" href="{{url_for('Requestpage1')}}"  >Submit</a>
+</div>
+{% endif %}
+
+</form>
+</p>
+
+ {% endfor %}
+ {% endif %}
+ 
+<!-- </form> -->
+<!-- <input type="submit" name="button"> submit -->
+
+<!-- <div >
+     <input type="submit" class="btn" name= "inp1" id="input1" value="Submit" formaction="{{url_for('Requestpage1')}}" formmethod="post">
+     </div> -->
 
 
 <!--   <div style="margin-left:40px;">
 <a class="button " type="submit" href="{{url_for('Requestpage1')}}"  >Submit</a>
-</div> -->
+</div>
+ -->
 
 
-</form>
+
+<div style="color: red">
+{% if d1 %}
+{{d1}}
+{% endif %}
+</div>
 
 
 </body>

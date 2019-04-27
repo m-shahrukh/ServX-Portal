@@ -54,4 +54,24 @@ for Users in python_obj["User"]:
 print(numbers)
 
 if '03361424139' in numbers:
-	print("dd")
+	print("number is here")
+
+
+numbers=[]
+names=[]
+
+for numb in python_obj['User']:
+  numbers.append(str(numb))
+
+print numbers
+print len(numbers)
+
+a=0
+
+
+
+a=0
+for numb in range(len(numbers)):
+  b=python_obj['User'][numbers[a]]['Name']
+  a=a+1
+  print b

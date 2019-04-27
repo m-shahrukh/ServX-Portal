@@ -2,17 +2,71 @@ from flask import Flask, render_template, json, request
 from firebase import firebase
 
 app = Flask(__name__)
-firebase = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', None)
+firebase1 = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', None)
+
+def make_list(problematic_values):
+    #known values is already a tuple. problematic values is a list.
+    list_of_tuples=[]
+
+    for x in problematic_values:
+        list_of_tuples.append(x)
+
+    return list_of_tuples
 
 
-#mysql.init_app(app)
-@app.route("/signuppage")
-def SignUp():
+
+@app.route("/requests")
+def Requestpage():
+
+    r=firebase1.get("requests",None)
+    numbers=[]
+
+    for numb in r:
+        numbers.append(numb)
+
+    length_numbers=len(numbers)
+
+    a=0
+    date=[]
+    for numb in range(len(numbers)):
+        b=r[numbers[a]][0]['date']
+        a=a+1
+        date.append(b)
+
+
+    a=0
+    status=[]
+    for numb in range(len(numbers)):
+        b=r[numbers[a]][0]['status']
+        a=a+1
+        status.append(b)
+
+
+    a=0
+    time=[]
+    for numb in range(len(numbers)):
+        b=r[numbers[a]][0]['time']
+        a=a+1
+        time.append(b)
 
 
 
+    return render_template('requests.html', numbers=numbers, time=time,length_numbers=2,date=date)
 
-    return render_template('signup.html')
+@app.route("/requests1", methods=['POST'])
+def Requestpage1():
+
+    decision=request.form.get('dec', None)
+    # firebase.put('servx-f0d70/requests/0/090078601','status',decision)  
+    # fire = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/servx-f0d70/requests/0/090078601/status', None)
+    # fire.put(fire,decision) 
+    # return "<h1>%s</h1>"%decision
+    # firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/servx-f0d70/requests/0', None).put('/090078601','status',decision)
+    # return "<h1>%s</h1>"%decision
+    firebase1.put('requests/03215468623/0','status',decision)
+    return "<h1>%s</h1>"%decision
+    
+
 
 @app.route("/homepage", methods=['POST'])
 def HomePage():
@@ -25,7 +79,7 @@ def HomePage():
     unsuccessful = 'Mobile number or password is invalid.'
 
 
-    r=firebase.get('/',None )
+    r=firebase1.get('/',None )
     # return "<h1>%s</h1>"%str(r)
 
     numbers=[]
@@ -38,7 +92,7 @@ def HomePage():
     if a in numbers:
         c=str(r['User'][a]["Password"])
         if(c==b):
-            return render_template('btn.html')
+            return render_template('home.html')
         else:
             return render_template('login.html', us=unsuccessful)
 
@@ -71,9 +125,6 @@ def HomePage1():
     e=request.form.get('confirmpass', None)
 
 
-    # if(a.isalpha()==False):
-    #     return render_template('signup.html', us=err5)
-
     if('1' in a) or ('2' in a) or ('3' in a) or ('4' in a) or ('5' in a) or ('6' in a) or ('7' in a) or ('8' in a) or ('9' in a) or ('0' in a ):
         return render_template('signup.html', us=err5)
 
@@ -84,26 +135,25 @@ def HomePage1():
     if ('@' not in b) or ('.' not in b):
         return render_template('signup.html', us=err6)
 
+    if(c.isdigit()==False):
+        return render_template('signup.html', us=err4)
+
     if(d!=e):
         return render_template('signup.html', us=err2)
 
     if(d==e and len(d)<8):
         return render_template('signup.html', us=err3)
 
-    if(c.isdigit()==False):
-        return render_template('signup.html', us=err4)
+
 
     # data = {"User": {c: {'Name': a, 'Password': d, 'email': b}}}
     # sent = json.dumps(data)
     # # result = firebase.post("/User", c)
     # result = firebase.put("/", data)
 
-    result = firebase.put("User",c,{'Name': a, 'Password': d, 'email': b})
-
-
-
-
+    result = firebase1.put("User",c,{'Name': a, 'Password': d, 'email': b})
     return render_template('login.html', us=err7)
+
 
 @app.route("/")
 def index():
