@@ -1,1 +1,1 @@
-web: gunicorn ServX-Portal:app
+web: gunicorn python project.py:app
