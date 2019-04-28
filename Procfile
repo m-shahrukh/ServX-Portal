@@ -1,1 +1,1 @@
-web: gunicorn servx-portal:app
+web: gunicorn ServX-Portal:app
