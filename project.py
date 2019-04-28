@@ -252,6 +252,7 @@ def customers():
 
         posts.append({'customer_name': n, 'email':e, 'mobile_number':key, 'cars': c})
         c=""
+        lsls=""
 
 
 
