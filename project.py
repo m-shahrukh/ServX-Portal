@@ -6,6 +6,14 @@ app = Flask(__name__)
 firebase1 = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', None)
 
 global length_requests
+posts  = [
+    {
+        'customer_name': '',
+        'mobile_number': '',
+        'email': '',
+        'cars': ''
+    }]
+
 
 @app.route("/signuppage")
 def signup():
@@ -224,7 +232,29 @@ def HomePage1():
 def index():
 
     return render_template('login.html')
+@app.route("/customers",methods=['GET', 'POST'])
+def customers():
+    #post= firebase.get('/User', None)
+    #return post.Name
+    #return render_template('customers.html', posts=posts)
 
+    c=[]
+    q=firebase.get("/User",None)
+    for key in q.keys(): 
+        n=q[key].get('Name')
+        e=q[key].get('email')
+        v= q[key].get('vehicle')
+        if v!=None: 
+            #for key in v.keys():
+            c.append(v.keys())
+        m= key
+
+        posts.append({'customer_name': n, 'email':e, 'mobile_number':key, 'cars': c})
+        c=[]
+
+
+
+    return render_template('customers.html', posts=posts)
 
 if __name__ == "__main__":
     #main()
