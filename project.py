@@ -2,6 +2,20 @@ from flask import Flask, render_template, json, request
 from firebase import firebase
 import copy
 
+
+
+class req:
+    
+    def  __init__(self):
+        self.numbers=None
+        self.date=None
+        self.time=None
+        self.oil=None
+        self.wash=None
+        self.location=None
+        self.requestID=None
+
+
 app = Flask(__name__)
 firebase1 = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', None)
 
@@ -30,7 +44,7 @@ def Requestpage():
     c=1
     requests=firebase1.get('requests',None)
     mobile_keys=requests.keys()
-    keys_person= requests[mobile_keys[0]].keys()
+    #keys_person= requests[mobile_keys[0]].keys()
 
 
     date=[]
@@ -38,33 +52,40 @@ def Requestpage():
     oil=[]
     wash=[]
     location=[]
+    #reqs= req()
+    req_IDs=[]
 
     for i in range(len(mobile_keys)):
 
-        keys_person= requests[mobile_keys[i]].keys()
+        keys_person= requests[mobile_keys[i]].keys() #requestIds
         for j in keys_person:
-            if j!='"0"':
+            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
                 a=requests[mobile_keys[i]][j]['date']
                 numbers.append(mobile_keys[i])
+                req_ID= int(j[1:len(j)-1])
+                req_IDs.append(req_ID)
                 date.append(a)
 
     for i in range(len(mobile_keys)):
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"':
+            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
 
                 a=requests[mobile_keys[i]][j]['time']
+                #req.time=a
                 time.append(a)
 
     length_numbers=len(date)
+    #req.numbers=length_numbers
 
     for i in range(len(mobile_keys)):
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"':
+            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
                 a=requests[mobile_keys[i]][j]['oil']
+                #req.oil=a
                 oil.append(a)
 
 
@@ -72,22 +93,40 @@ def Requestpage():
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"':
+            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
                 a=requests[mobile_keys[i]][j]['wash']
+                #req.wash=a
                 wash.append(a)
 
     for i in range(len(mobile_keys)):
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"':
+            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
                 a=requests[mobile_keys[i]][j]['location']
+                #req.location=a
                 location.append(a)
 
+    reqs=[req() for i in range(length_numbers)]
+    for i in range(length_numbers):
+        reqs[i].numbers=numbers[i]
+        reqs[i].date=date[i]
+        reqs[i].time=time[i]
+        reqs[i].oil=oil[i]
+        reqs[i].wash=wash[i]
+        reqs[i].location=location[i]
+        reqs[i].requestID=req_IDs[i]
+        #req_IDs[i]=reqs[i].requestID
+
+    reqs.sort(key= lambda x: x.requestID, reverse=True)
 
 
 
-    return render_template('requests.html', numbers=numbers, time=time,length_numbers=length_numbers,date=date,oil=oil,wash=wash,location=location)
+
+
+    #return "<h1>%s</h1"%str(reqs[0].requestID)
+    return render_template('requests.html',reqs=reqs, enumerate= enumerate)
+    #return render_template('requests.html', numbers=numbers, time=time,length_numbers=length_numbers,date=date,oil=oil,wash=wash,location=location)
 
 @app.route("/requests1", methods=['POST'])
 def Requestpage1():
@@ -102,45 +141,65 @@ def Requestpage1():
     requests=firebase1.get('requests',None)
     mobile_keys=requests.keys()
     # keys_person= requests[mobile_keys[0]].keys()
+    reqs=[]
 
     for i in range(len(mobile_keys)):
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"':
+            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
                 numbers.append(mobile_keys[i])
+                req_ID= int(j[1:len(j)-1])
+                re=req()
+                re.requestID=(req_ID)
+                re.numbers=mobile_keys[i]
+                reqs.append(re)
 
 
 
     decision=[]
-    for i in range(len(numbers)):
+    reqs.sort(key= lambda x:x.requestID, reverse=True)
 
-      decision1=request.form.get('dec'+str(i),None)
+    for i in range(len(reqs)):
+
+      decision1=request.form.get('dec'+reqs[i].numbers+str(i), None)
+
       decision.append(decision1)
 
 
-    index=0
-    for i in range(len(mobile_keys)):
+    #decision=request.form.get('dec'+"03215468623"+"0")
 
-        keys_person= requests[mobile_keys[i]].keys()
-        for j in keys_person:
-            if j!='"0"':
-                if decision[index]!=None:
-                    firebase1.put('requests/'+str(mobile_keys[i])+'/'+str(j),'status',decision[index])
-                index=index+1
+    #return "<h1>%s</h1>"%str(decision)
+    #return render_template('home.html', msg="decisions sent!")
+
+
+    index=0
+    for i in range(len(reqs)):
+        if decision[i]!=None:
+                    j='"%s"'%str(reqs[i].requestID)
+                    firebase1.put('requests/'+reqs[i].numbers+'/'+j,'status',decision[i])
+        # keys_person= requests[reqs[i].numbers].keys()
+        # for j in keys_person:
+        #     if j!='"0"':
+        #         if decision[i]!=None:
+        #             firebase1.put('requests/'+str(mobile_keys[i])+'/'+str(j),'status',decision[index])
+        #         index=index+1
             
 
 
-    return "<h1>%s</h1>"%str(decision)
+    #return "<h1>%s</h1>"%str(decision)
+    return render_template('home.html', msg="Decisions sent!")
     
 
 
-@app.route("/homepage", methods=['POST'])
+@app.route("/homepage", methods=['GET','POST'])
 def HomePage():
     #r="HALO"
     #r= request.form.get('user',None)
     #r= request.form['pass']
-
+    
+    if request.method== 'GET':
+        return render_template('home.html')
     a=request.form.get('user', None)
     b=request.form.get('pass',None)
     unsuccessful = 'Mobile number or password is invalid.'
@@ -258,6 +317,13 @@ def customers():
 
     return render_template('customers.html', posts=posts)
 
+@app.route("/history", methods=['POST'])
+def History():
+
+    return '<h1> IN PROGRESS </h1> <a href="/homepage"> Home</a>'
+
+
+
 if __name__ == "__main__":
     #main()
-    app.run()
+    app.run(debug=True)

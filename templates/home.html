@@ -95,12 +95,17 @@ li a:hover {
 <img src="static/images/logo.png" alt=""  class="logo">
 
 
- <li><a href="/Sign Up" target="_blank">Log Out</a></li>
+ <li><a href="{{url_for('index')}}" >Log Out</a></li>
 </ul>
 
 
+
 <br>
 <br>
+{%if msg %}
+<h2>{{msg}}</h2>
+<br>
+{% endif %}
 <br>
 	
 

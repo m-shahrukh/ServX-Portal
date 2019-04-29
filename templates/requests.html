@@ -109,7 +109,7 @@ h2 span {
 <ul>
  
 
-<img src="static/images/logo.png" alt=""  class="logo">
+<a href="{{url_for('HomePage')}}"><img src="static/images/logo.png" alt=""  class="logo">
 
 
  <li><a href="/Sign Up" target="_blank">Log Out</a></li>
@@ -118,36 +118,36 @@ h2 span {
 <h2><span>Requests</span></h2>
 
 <!-- <form action="/requests1" method="post"> -->
-  <form action="/requests1" method="post">
-{% if numbers%}
-{% for i in range(length_numbers) %}
+  <form >
+
+{% for i,x in enumerate(reqs) %}
 <p id="rcorners4">
 
-Mobile number: {{numbers[i]}}
+Mobile number: {{x.numbers}}
 </br>
-Oil: {{oil[i]}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-Wash: {{wash[i]}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+Oil: {{x.oil}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+Wash: {{x.wash}} &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 <br>
-Location: {{location[i]}}&nbsp; &nbsp;
+Location: {{x.location}}&nbsp; &nbsp;
 </br>
-Date: {{date[i]}} &nbsp; &nbsp;
-Time: {{time[i]}}
+Date: {{x.date}} &nbsp; &nbsp;
+Time: {{x.time}}
 </br>
 
-<input type="radio" name="dec{{i}}" value="decline"  />Decline &nbsp; &nbsp;
-<input type="radio" name="dec{{i}}" value="accept" /> Accept &nbsp; &nbsp;
+<input type="radio" name="dec{{x.numbers}}{{i}}" value="decline"  />Decline &nbsp; &nbsp;
+<input type="radio" name="dec{{x.numbers}}{{i}}" value="accept" /> Accept &nbsp; &nbsp;
 <!-- <input type="radio" name="dec{{i}}" value="reshedule"  /> Reshedule -->
 <!-- <input type="submit" name="button">  -->
 
  {% endfor %}
  <div style="margin-left:40px;">
-<input type="submit" value="submit" action="/requests1" method="post">
-<input type="submit" value="History" action="/history" method="post">
+<input type="submit" value="submit" formaction="/requests1" formmethod="post">
+<!-- <input type="submit" value="History" formaction="/history" formmethod="post"> -->
 </div>
 </form>
 </p>
 
- {% endif %}
+ 
 
 
 
