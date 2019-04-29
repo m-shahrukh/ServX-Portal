@@ -108,6 +108,7 @@ def Requestpage():
                 location.append(a)
 
     reqs=[req() for i in range(length_numbers)]
+
     for i in range(length_numbers):
         reqs[i].numbers=numbers[i]
         reqs[i].date=date[i]
@@ -297,6 +298,8 @@ def customers():
     q=firebase1.get("/User",None)
     for key in q.keys(): 
         n=q[key].get('Name')
+        if n==None:
+            n=q[key].get('name')
         e=q[key].get('email')
         v= q[key].get('vehicle')
         if v!=None: 
