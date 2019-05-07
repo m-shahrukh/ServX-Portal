@@ -19,8 +19,10 @@ class req:
 app = Flask(__name__)
 firebase1 = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', None)
 
+
 global length_requests
 posts  = []
+hists=[]
 
 
 @app.route("/signuppage")
@@ -320,10 +322,27 @@ def customers():
 
     return render_template('customers.html', posts=posts)
 
-@app.route("/history", methods=['POST'])
+@app.route("/history", methods=['GET', 'POST'])
 def History():
+    r=firebase1.get('/requests',None)
+    rkeys= r.keys()
+  #pos=[{'status':''}]
+    for i in range(len(r)):
 
-    return '<h1> IN PROGRESS </h1> <a href="/homepage"> Home</a>'
+        keys_person= r[rkeys[i]].keys()
+        for j in keys_person:
+            if j!='"0"': 
+                s= r[rkeys[i]][j].get('status')
+                s1=r[rkeys[i]][j]['date']
+                s2=r[rkeys[i]][j]['location']
+                s3=r[rkeys[i]][j]['oil']
+                s4=r[rkeys[i]][j]['wash']
+                s5=r[rkeys[i]][j]['time']
+                #pos.append({'status': s})
+                
+                hists.append({'customer_name': 'dummy name', 'total_cost':'1000','location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
+
+    return render_template('history.html', posts=hists)
 
 
 
