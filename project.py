@@ -352,15 +352,15 @@ def History():
           s= c[ckey[i]][j].get('Cost')
           if (j=='Gold' or j=='gold') and  a=='CarWash': 
             washgold=s
-          if j=='Silver' and  a=='CarWash': 
+          if (j=='Silver' or j=='silver') and  a=='CarWash': 
             washsilver=int (s)
-          if j=='Bronze' and  a=='CarWash': 
+          if (j=='Bronze' or j=='bronze') and  a=='CarWash': 
             washbr=int (s)
           if (j=='Gold' or j=='gold') and  a=='OilChange': 
             oilgold=s
-          if j=='Silver' and  a=='OilChange': 
+          if (j=='Silver' or j=='silver') and  a=='OilChange': 
             oilsilver=int (s)
-          if j=='Bronze' and  a=='OilChange': 
+          if (j=='Bronze' or j=='bronze') and  a=='OilChange': 
             oilbr=int (s) 
           
 
@@ -388,16 +388,16 @@ def History():
                 s3=r[rkeys[i]][j]['oil']
                 if s3=='Gold' or s3=='gold':
                   bill=oilgold
-                if s3=='Silver': 
+                if s3=='Silver' or s3=='silver': 
                   bill= oilsilver
-                if s3=='Bronze': 
+                if s3=='Bronze' or s3=='bronze': 
                   bill==oilbr
                 s4=r[rkeys[i]][j]['wash']
                 if s4=='Gold' or s4== 'gold':
                   bill1=washgold
-                if s4=='Silver':
+                if s4=='Silver' or s4=='silver':
                   bill1=washsilver
-                if s4=='Bronze': 
+                if s4=='Bronze' or s4=='bronze': 
                   bill1=washbr
 
                 totalbill= int(bill)+ int(bill1)
