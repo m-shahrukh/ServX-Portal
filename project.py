@@ -350,18 +350,18 @@ def History():
         ck= c[ckey[i]].keys()
         for j in ck: 
           s= c[ckey[i]][j].get('Cost')
-          if j=='Gold' and  a=='CarWash': 
+          if (j=='Gold' or j=='gold') and  a=='CarWash': 
             washgold=s
           if j=='Silver' and  a=='CarWash': 
-            washsilver=s
+            washsilver=int (s)
           if j=='Bronze' and  a=='CarWash': 
-            washbr=s
-          if j=='Gold' and  a=='OilChange': 
+            washbr=int (s)
+          if (j=='Gold' or j=='gold') and  a=='OilChange': 
             oilgold=s
           if j=='Silver' and  a=='OilChange': 
-            oilsilver=s
+            oilsilver=int (s)
           if j=='Bronze' and  a=='OilChange': 
-            oilbr=s
+            oilbr=int (s) 
           
 
 
@@ -386,14 +386,14 @@ def History():
                 s1=r[rkeys[i]][j]['date']
                 s2=r[rkeys[i]][j]['location']
                 s3=r[rkeys[i]][j]['oil']
-                if s3=='Gold':
+                if s3=='Gold' or s3=='gold':
                   bill=oilgold
                 if s3=='Silver': 
                   bill= oilsilver
                 if s3=='Bronze': 
                   bill==oilbr
                 s4=r[rkeys[i]][j]['wash']
-                if s4=='Gold':
+                if s4=='Gold' or s4== 'gold':
                   bill1=washgold
                 if s4=='Silver':
                   bill1=washsilver
@@ -405,6 +405,9 @@ def History():
                 #pos.append({'status': s})
                 
                 hists.append({'customer_name': 'dummy name', 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
+                #bill1=0
+                #bill=0
+                #totalbill=0
 
     return render_template('history.html', posts=hists)
 
