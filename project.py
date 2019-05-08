@@ -412,9 +412,9 @@ def History():
                 #pos.append({'status': s})
                 
                 hists.append({'customer_name': n, 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
-                #bill1=0
-                #bill=0
-                #totalbill=0
+                bill1=0
+                bill=0
+                totalbill=0
 
     return render_template('history.html', posts=hists)
 

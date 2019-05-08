@@ -2,31 +2,41 @@
 <html>
 <head>
 <style>
+
 ul {
   list-style-type:none;
-  margin: 0;
+  margin: 0px 0px;
   padding: 0;
   overflow: hidden;
-  background-color: #78909c;
+  margin-left: -8px;
+  background-image: linear-gradient(#1c35db, #0b1660);
+  height: 130px;
+  width: 101.2%;
+  margin-top: -10px;
 }
-
 li {
   float: right;
 }
-
 li a {
   display: block;
   color: white;
-  padding: 40px 16px;
+  padding: 50px 25px;
   text-align: center;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #111;
+  background-color: #2b2b2b;
   
 }
+.logo{
+  margin-top: 8.5px;
+  width:155px;
+  float: left;
+  padding-left: 0%;
+  margin-left: 2%;
 
+}
 
 h2 {
    width: 100%; 
@@ -35,48 +45,35 @@ h2 {
    line-height: 0.01em;
    margin: 20px 0 10px;
 border-color: #D3D3D3; 
-
  } 
-
 h2 span { 
     background:#fff; 
     padding:0 50px; 
-
 }
 #rcorners4 {
   border-radius: 15px;
  
-  background: #eeeeee;
+  background: #f2f3f9;
   padding: 10px; 
-  width: 1000px;
-  height: 100px;
+  width: 670px;
+  height: 95px;
   margin-left: 50px 
 } 
 input {
     border: none;
     background: transparent;
     border-bottom: 1px solid #D3D3D3
-
 }
-
 button {
-
  border: none;
     background: transparent;
     border-bottom: 1px solid #D3D3D3
     color:grey;font-size:15p
-
 }
-
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: blue;
   opacity: 1; /* Firefox */
 }
-
-
-
-
-
 </style>
 
 
@@ -84,52 +81,31 @@ button {
 </head>
 <body>
 
-<ul>
-  <img src="/logo.png" alt="servX" width="110" height="110" align="middle" hspace="35">
- <li><a href="/Sign Up" target="_blank">Log Out</a></li>
+  <ul>
+ 
+
+<a href="{{url_for('HomePage')}}"><img src="static/images/logo.png" alt=""  class="logo">
+  <li><a href="{{url_for('index')}}" style="font-family: Segoe UI; font-size: 22px; font-weight: bold; color: white; margin-top: -100px; ">Logout</a></li>
+
 </ul>
 
 
-<h2><span>History</span></h2>
-{% for post in posts%}
-<p id="rcorners4"> 
- Customer Name {{post.customer_name}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; Status  {{post.status}}
 
-<br>Package Type Oil:  {{post.oil}}
+<h1 style="margin-top: 7px;margin-left: 52px; font-family: Segoe UI;">History</h1>
+{% for post in posts%}
+<p style="font-family: Segoe UI; font-size: 13px;" id="rcorners4"> 
+ Customer Name {{post.customer_name}} 
+
+<br>Package Type Oil:  {{post.oil}} 
 <br>Package Type Wash:  {{post.wash}}
 <br>Location: {{post.location}}
-<br>Date: {{post.date}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;  Time: {{post.time}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   Total Cost {{post.total_cost}}
+<br>Date: {{post.date}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   Time: {{post.time}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  Total Cost: {{post.total_cost}}   &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  Status:  {{post.status}} 
+
 
 </p>
 {%  endfor %}
 
 
-
-<!--<div style="position: relative; width: 950px;">
-  <div style="position: absolute; top: 0; right: 0; width: 100px; text-align:right;">
-    Status
-  </div>
-  <div style="position: absolute; bottom: 0; right: 0; width: 100px; text-align:right;">
-    Total Cost
-  </div>
-  Lorem Ipsum etc <br />
-  Car(s) <br />
-  Package(s) Type  <br />
-  Package(s) <br />
-  Date
-</div>
-
--->
-<!--{% for post in posts%}
-<p id="rcorners4"> Customer name {{post.customer_name}} 
-<br>Car(s)  {{post.cars}} 
-<br>Mobile Number  {{post.mobile_number}}
-<br>Address(s)   {{post.address}}
-<br>E-mail  {{post.email}}
-</p>
-{%  endfor %}
--->
 
 </body>
 </html>
