@@ -16,8 +16,8 @@
 
 
 .button {
-	margin-left: 40px;
-	margin-top: 20px;
+  margin-left: 40px;
+  margin-top: 20px;
     display: inline-block;
     text-align: left;
     vertical-align: middle;
@@ -52,9 +52,10 @@ ul {
   margin: 0px 0px;
   padding: 0;
   overflow: hidden;
-  background-color: #545360;
+  margin-left: -8px;
+  background-image: linear-gradient(#1c35db, #0b1660);
   height: 130px;
-  width: 100%;
+  width: 101.2%;
   margin-top: -10px;
 }
 
@@ -65,19 +66,20 @@ li {
 li a {
   display: block;
   color: white;
-  padding: 40px 16px;
+  padding: 50px 25px;
   text-align: center;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #111;
+  background-color: #2b2b2b;
   
 }
 
 
 .logo{
-  width:177px;
+  margin-top: 8.5px;
+  width:155px;
   float: left;
   padding-left: 0%;
   margin-left: 2%;
@@ -95,7 +97,7 @@ li a:hover {
 <img src="static/images/logo.png" alt=""  class="logo">
 
 
- <li><a href="{{url_for('index')}}" >Log Out</a></li>
+ <li><a href="{{url_for('index')}}" style="font-family: Segoe UI; font-size: 22px; font-weight: bold; color: white; ">Logout</a></li>
 </ul>
 
 
@@ -107,14 +109,14 @@ li a:hover {
 <br>
 {% endif %}
 <br>
-	
+  
 
 <form>
 
 
 <div style="margin-left:40px;">
 <a class="button " href="{{url_for('Requestpage')}}"  formmethod="post">
-	<i class="fas fa-pen-square" style="font-size: 1.3em; padding-bottom: 10px; padding-right:16px;"></i>Requests</a>
+  <i class="fas fa-pen-square" style="font-size: 1.3em; padding-bottom: 10px; padding-right:16px;"></i>Requests</a>
 </div>
 
 <br>
@@ -122,8 +124,8 @@ li a:hover {
 
 
 <div style=" margin-left:40px;">
-<a class="button" href="#" >
-	<i class="fas fa-history" style="font-size: 1.3em; padding-bottom: 10px; padding-right:14px;"></i>History   </a>
+<a class="button" href="{{url_for('History')}}" >
+  <i class="fas fa-history" style="font-size: 1.3em; padding-bottom: 10px; padding-right:14px;"></i>History   </a>
 </div>
 
 <br>
@@ -131,7 +133,7 @@ li a:hover {
 
 <div style=" margin-left:40px;">
 <a class="button" href="{{url_for('customers')}}" >
-	<i class="fas fa-address-card" style="font-size: 1.3em; padding-bottom: 10px; padding-right:14px;"></i>Customers   </a>
+  <i class="fas fa-address-card" style="font-size: 1.3em; padding-bottom: 10px; padding-right:14px;"></i>Customers   </a>
 </div>
 
 
