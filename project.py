@@ -326,6 +326,56 @@ def customers():
 def History():
     r=firebase1.get('/requests',None)
     rkeys= r.keys()
+    c=firebase1.get('/Packages',None)
+
+    costs=[]
+    rkeys= r.keys()
+    ckey= c.keys()
+    oilbr=0
+    oilgold=0
+    oilsilver=0
+    washbr=0
+    washgold=0
+    washsilver=0
+    bill=0
+    bill1=0
+    totalbill=0
+
+
+
+  
+    for i in range(len (c)):
+        a=ckey[i]
+    #print a - the categories of oil change and car wash
+        ck= c[ckey[i]].keys()
+        for j in ck: 
+          s= c[ckey[i]][j].get('Cost')
+          if j=='Gold' and  a=='CarWash': 
+            washgold=s
+          if j=='Silver' and  a=='CarWash': 
+            washsilver=s
+          if j=='Bronze' and  a=='CarWash': 
+            washbr=s
+          if j=='Gold' and  a=='OilChange': 
+            oilgold=s
+          if j=='Silver' and  a=='OilChange': 
+            oilsilver=s
+          if j=='Bronze' and  a=='OilChange': 
+            oilbr=s
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
   #pos=[{'status':''}]
     for i in range(len(r)):
 
@@ -336,11 +386,25 @@ def History():
                 s1=r[rkeys[i]][j]['date']
                 s2=r[rkeys[i]][j]['location']
                 s3=r[rkeys[i]][j]['oil']
+                if s3=='Gold':
+                  bill=oilgold
+                if s3=='Silver': 
+                  bill= oilsilver
+                if s3=='Bronze': 
+                  bill==oilbr
                 s4=r[rkeys[i]][j]['wash']
+                if s4=='Gold':
+                  bill1=washgold
+                if s4=='Silver':
+                  bill1=washsilver
+                if s4=='Bronze': 
+                  bill1=washbr
+
+                totalbill= int(bill)+ int(bill1)
                 s5=r[rkeys[i]][j]['time']
                 #pos.append({'status': s})
                 
-                hists.append({'customer_name': 'dummy name', 'total_cost':'1000','location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
+                hists.append({'customer_name': 'dummy name', 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
 
     return render_template('history.html', posts=hists)
 
