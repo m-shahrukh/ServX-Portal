@@ -327,6 +327,7 @@ def History():
     r=firebase1.get('/requests',None)
     rkeys= r.keys()
     c=firebase1.get('/Packages',None)
+    q=firebase1.get('/User',None)
 
     costs=[]
     rkeys= r.keys()
@@ -381,6 +382,12 @@ def History():
 
         keys_person= r[rkeys[i]].keys()
         for j in keys_person:
+            for key in q.keys():
+                if rkeys[i]==key: 
+                    n= q[key].get('Name')
+                    if n==None: 
+                        n=q[key].get('name')
+            #print n
             if j!='"0"': 
                 s= r[rkeys[i]][j].get('status')
                 s1=r[rkeys[i]][j]['date']
@@ -404,7 +411,7 @@ def History():
                 s5=r[rkeys[i]][j]['time']
                 #pos.append({'status': s})
                 
-                hists.append({'customer_name': 'dummy name', 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
+                hists.append({'customer_name': n, 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
                 #bill1=0
                 #bill=0
                 #totalbill=0
