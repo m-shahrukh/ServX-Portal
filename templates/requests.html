@@ -26,11 +26,13 @@ ul {
   margin: 0px 0px;
   padding: 0;
   overflow: hidden;
-  background-color: #545360;
-  height: 120px;
-  width: 100%;
+  margin-left: -8px;
+  background-image: linear-gradient(#1c35db, #0b1660);
+  height: 130px;
+  width: 101.2%;
   margin-top: -10px;
 }
+
 
 li {
   float: right;
@@ -39,16 +41,15 @@ li {
 li a {
   display: block;
   color: white;
-  padding: 40px 16px;
+  padding: 50px 25px;
   text-align: center;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #111;
+  background-color: #2b2b2b;
   
 }
-
 
 h2 {
    width: 100%; 
@@ -56,7 +57,7 @@ h2 {
    border-bottom: 1px solid #fff; 
    line-height: 0.01em;
    margin: 20px 0 10px;
-border-color: #D3D3D3; 
+  border-color: #D3D3D3; 
 
  } 
 
@@ -66,37 +67,38 @@ h2 span {
 
 }
 #rcorners4 {
-  border-radius: 15px;
+  border-radius: 10px;
  
-  background: #eeeeee;
+  background: #f2f3f9;
   padding: 10px; 
-  width: 590px;
-  height: 100px;
+  width: 635px;
+  height: 107px;
   margin-left: 50px 
 } 
-/*input {
-    border: none;
-    background: transparent;
-    border-bottom: 1px solid #D3D3D3
 
-}*/
 
 .logo{
-  width:164px;
+  margin-top: 8.5px;
+  width:155px;
   float: left;
   padding-left: 0%;
   margin-left: 2%;
 
 }
 
-/*button {
-
- border: none;
-    background: transparent;
-    border-bottom: 1px solid #D3D3D3
-    color:grey;font-size:15p
-
-}*/
+#input1 {
+  text-align: center;
+  margin-right: 0px;
+  width: 100px;
+  height: 35px;
+  float: left;
+  padding-left: 0px;
+  margin-left: 110px;
+  font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+  color: #000000;
+  font-weight: bolder;
+  border-radius: 5px;
+}
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: blue;
@@ -111,17 +113,16 @@ h2 span {
 
 <a href="{{url_for('HomePage')}}"><img src="static/images/logo.png" alt=""  class="logo">
 
-
- <li><a href="/Sign Up" target="_blank">Log Out</a></li>
+ <li><a href="{{url_for('index')}}" style="font-family: Segoe UI; font-size: 22px; font-weight: bold; color: white; margin-top: -100px; ">Logout</a></li>
 </ul>
 
-<h2><span>Requests</span></h2>
 
 <!-- <form action="/requests1" method="post"> -->
   <form >
+    <h1 style="margin-top: 7px;margin-left: 52px; font-family: Segoe UI;">Requests</h1>
 
 {% for i,x in enumerate(reqs) %}
-<p id="rcorners4">
+<p style="font-family: Segoe UI; font-size: 13px" id="rcorners4">
 
 Mobile number: {{x.numbers}}
 </br>
@@ -140,9 +141,9 @@ Time: {{x.time}}
 <!-- <input type="submit" name="button">  -->
 
  {% endfor %}
- <div style="margin-left:40px;">
-<input type="submit" value="submit" formaction="/requests1" formmethod="post">
-<!-- <input type="submit" value="History" formaction="/history" formmethod="post"> -->
+ <div style="margin-left:-55px;">
+<input type="submit" value="Submit" name= "inp1" id="input1" formaction="/requests1" formmethod="post">
+
 </div>
 </form>
 </p>
