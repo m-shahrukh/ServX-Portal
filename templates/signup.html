@@ -20,14 +20,16 @@
 .navbar{
   width: 100%;
   overflow: hidden;
-  height: 120px;
+  height: 130px;
   line-height: 70px;
   background: #545360;
+  background-image: linear-gradient(#1c35db, #0b1660);
   border-bottom: 2px
 }
 
 .logo{
-  width:164px;
+  margin-top: 8.5px;
+  width:155px;
   float: left;
   padding-left: 0%;
   margin-left: -5%
@@ -54,19 +56,19 @@
 li {
   float: right;
 }
-
+/*
 li a {
   display: block;
   color: white;
+  padding: 50px 25px;
   text-align: center;
-  padding: 20px 20px;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #111;
-}
-
+  background-color: #2b2b2b;
+  
+}*/
 
 </style>
 </head>
@@ -78,10 +80,11 @@ li a:hover {
 <div class="navbar">
   <div class="container">
   <div class="logo_div">
-    <img src="static/images/logo.png" alt=""  class="logo">
+    <img src="static/images/logo.png"  class="logo">
   <div class ="navbar_links">
     <ul class="menu">
-      <li class="active" ><a href="#">Home</a></li>
+
+      
 
 
     </ul>
@@ -90,8 +93,9 @@ li a:hover {
 </div>
 
 
-<h1>Sign Up</h1>
 <form class ="box" id="form" action="/homepage1" method="post">
+  <br>
+  <h1 style="margin-top: -120px; font-family: Segoe UI;">Sign Up</h1>
 
    <div class="textbox">
     <i class="fas fa-user" style="font-size: 1.5em; "></i>
@@ -114,12 +118,12 @@ li a:hover {
     <input type="password" name="confirmpass" id= "userpass" placeholder="Confirm Password" required autofocus></div>
      
 <div id="div1">
-     <input type="submit" class="btn" name= "inp1" id="input1" value="Submit">
+     <input type="submit" class="button" name= "inp1" id="input1" value="Submit">
      </div>
 <br>
   <div style="color: red; font-family: "Segoe", "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif; font-style: "Segoe";">
   {% if us %}
-{{us}}
+<p style="font-family: Segoe UI; font-size: 14px"> {{us}} </p>
 {% endif %}
 
 </form>
