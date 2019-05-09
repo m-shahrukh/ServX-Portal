@@ -5,12 +5,13 @@ body {
   background-image: url(../images/logo.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: 51.5% 0%; 
+  background-position: 51.5% 10%; 
   background-size: 488px 358px;
 }
 
 
 #form {
+	padding-top: 50px;
 	text-align: center;
 	-webkit-box-shadow: 0px 0px 0px;
 	box-shadow: 0px 0px 0px;
@@ -18,8 +19,8 @@ body {
 	width: 300px;
 	margin-top: 350px;
 	margin-left: 50px;
-	 background-repeat: no-repeat;
-  background-attachment: fixed;
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
 }
 
 input{

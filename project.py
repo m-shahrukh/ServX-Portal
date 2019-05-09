@@ -191,7 +191,8 @@ def Requestpage1():
 
 
     #return "<h1>%s</h1>"%str(decision)
-    return render_template('home.html', msg="Decisions sent!")
+    # return render_template('home.html', msg="Decisions sent!")
+    return render_template('requests.html',reqs=reqs, enumerate= enumerate)
     
 
 
