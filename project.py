@@ -369,15 +369,6 @@ def History():
 
 
 
-
-
-
-
-
-
-
-
-
   #pos=[{'status':''}]
     for i in range(len(r)):
 
