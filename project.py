@@ -339,6 +339,8 @@ def customers():
     j=0
     q=firebase1.get("/User",None)
     for key in q.keys(): 
+        if q[key].get('isAdmin')=='1': 
+            continue
         n=q[key].get('Name')
         if n==None:
             n=q[key].get('name')
