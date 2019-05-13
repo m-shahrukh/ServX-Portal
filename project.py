@@ -1,8 +1,16 @@
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, session, escape
 from firebase import firebase
+import pyrebase
 import copy
 
-
+config={
+    "apiKey": "AIzaSyDSc5--FWUQkRLp8WArAPxKtCJxMAYawPk",
+    "authDomain": "servx-f0d70.firebaseapp.com",
+    "databaseURL": "https://servx-f0d70.firebaseio.com",
+    "projectId": "servx-f0d70",
+    "storageBucket": "servx-f0d70.appspot.com",
+    "messagingSenderId": "1048415000509"
+}
 
 class req:
     
@@ -17,7 +25,13 @@ class req:
 
 
 app = Flask(__name__)
-firebase1 = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', None)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+firebase1 = firebase.FirebaseApplication('https://servx-f0d70.firebaseio.com/', authentication=None)
+firebase2= pyrebase.initialize_app(config)
+user_tok=None
+
+
 
 
 global length_requests
@@ -198,14 +212,39 @@ def Requestpage1():
 
 @app.route("/homepage", methods=['GET','POST'])
 def HomePage():
+    global user_tok
     #r="HALO"
     #r= request.form.get('user',None)
     #r= request.form['pass']
     
     if request.method== 'GET':
-        return render_template('home.html')
+        if 'user' in session:
+            return str(session['user'])
+        #return render_template('home.html')
     a=request.form.get('user', None)
     b=request.form.get('pass',None)
+    r=firebase1.get('/',None )
+    email= r['User'][a]['email']
+    
+    #authentication= firebase.FirebaseAuthentication(b,'samm@gmail.com')
+    auth= firebase2.auth()
+    
+    user=str(None)
+    try:
+     user= auth.sign_in_with_email_and_password(email, b)
+     #user_tok=auth.get_account_info(user['idToken'])
+     user_tok=a
+    except:
+        user=None
+        return "Sign in Failed"
+    
+    session['user']=a
+
+
+    
+    
+    return "<h1> %s </h1>"%str(user_tok)
+
     unsuccessful = 'Mobile number or password is invalid.'
 
 
@@ -365,15 +404,6 @@ def History():
           if (j=='Bronze' or j=='bronze') and  a=='OilChange': 
             oilbr=int (s) 
           
-
-
-
-
-
-
-
-
-
 
 
 
