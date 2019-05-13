@@ -335,6 +335,8 @@ def customers():
     j=0
     q=firebase1.get("/User",None)
     for key in q.keys(): 
+        if q[key].get('isAdmin')=='1': 
+            continue
         n=q[key].get('Name')
         if n==None:
             n=q[key].get('name')
@@ -417,18 +419,22 @@ def History():
                     if n==None: 
                         n=q[key].get('name')
             #print n
-            if j!='"0"': 
-                s= r[rkeys[i]][j].get('status')
+            if j!='"0"' and r[rkeys[i]][j].get('status')=='accept': 
+                s= 'Accepted'
                 s1=r[rkeys[i]][j]['date']
                 s2=r[rkeys[i]][j]['location']
                 s3=r[rkeys[i]][j]['oil']
                 if s3=='Gold' or s3=='gold':
                   bill=oilgold
+                if s3== "" :
+                    s3="Not Selected"
                 if s3=='Silver' or s3=='silver': 
                   bill= oilsilver
                 if s3=='Bronze' or s3=='bronze': 
                   bill==oilbr
                 s4=r[rkeys[i]][j]['wash']
+                if s4== "": 
+                    s4="Not Selected"
                 if s4=='Gold' or s4== 'gold':
                   bill1=washgold
                 if s4=='Silver' or s4=='silver':
