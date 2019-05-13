@@ -45,6 +45,8 @@ def signup():
 
 @app.route("/requests")
 def Requestpage():
+  if 'user' in session:
+
 
     r=firebase1.get("requests",None)
     r1=firebase1.get("requestID",None)
@@ -144,7 +146,8 @@ def Requestpage():
     #return "<h1>%s</h1"%str(reqs[0].requestID)
     return render_template('requests.html',reqs=reqs, enumerate= enumerate)
     #return render_template('requests.html', numbers=numbers, time=time,length_numbers=length_numbers,date=date,oil=oil,wash=wash,location=location)
-
+  else:
+      return render_template('login.html')
 @app.route("/requests1", methods=['POST'])
 def Requestpage1():
 
@@ -212,65 +215,40 @@ def Requestpage1():
 
 @app.route("/homepage", methods=['GET','POST'])
 def HomePage():
-    global user_tok
-    #r="HALO"
-    #r= request.form.get('user',None)
-    #r= request.form['pass']
     
+    unsuccessful = 'Mobile number or password is invalid.'
+
     if request.method== 'GET':
         if 'user' in session:
-            return str(session['user'])
-        #return render_template('home.html')
+            return render_template('home.html')
+        else:
+            return render_template('login.html')
     a=request.form.get('user', None)
     b=request.form.get('pass',None)
-    r=firebase1.get('/',None )
-    email= r['User'][a]['email']
+    r=firebase1.get('/User',None )
+    if a not in r:
+        return render_template('login.html', us=unsuccessful )
+        
+    email= r[a]['email']
     
-    #authentication= firebase.FirebaseAuthentication(b,'samm@gmail.com')
     auth= firebase2.auth()
     
     user=str(None)
     try:
      user= auth.sign_in_with_email_and_password(email, b)
      #user_tok=auth.get_account_info(user['idToken'])
-     user_tok=a
+     session['user']=a
+     return render_template('home.html')
     except:
         user=None
-        return "Sign in Failed"
-    
-    session['user']=a
+        return render_template('login.html', us=unsuccessful )
 
 
     
-    
-    return "<h1> %s </h1>"%str(user_tok)
-
-    unsuccessful = 'Mobile number or password is invalid.'
-
-
-    r=firebase1.get('/',None )
-    # return "<h1>%s</h1>"%str(r)
-
-    numbers=[]
-
-    for numb in r['User']:
-        numbers.append(numb)
-
-    # r1=firebase.get("User/03230494883",None)
-
-    if a in numbers:
-        c=str(r['User'][a]["Password"])
-        if(c==b):
-            return render_template('home.html')
-        else:
-            return render_template('login.html', us=unsuccessful)
-
-
-    return render_template('login.html', us=unsuccessful)
-
-
-    # return "<h1>%s</h1>"%str(r[a]["Password"])
-    
+@app.route("/logout")
+def logout():
+    session.pop('user',None)
+    return render_template('login.html')
 
 @app.route("/homepage1", methods=['POST'])
 def HomePage1():
@@ -281,7 +259,7 @@ def HomePage1():
 
     err1='Incorrect Mobile Number.'
     err2='Please type your password again.'
-    err3='Password length too short.'
+    err3='Password length too short, must be 8 digits'
     err4='Mobile number must consist of digits.'
     err5='Name must consist of alphabets.'
     err7='Enter your credentials to login now.'
@@ -292,6 +270,8 @@ def HomePage1():
     c=request.form.get('mobile', None)
     d=request.form.get('pass',None)
     e=request.form.get('confirmpass', None)
+    admin_key= request.form.get('adminpass',None)
+
 
 
     if('1' in a) or ('2' in a) or ('3' in a) or ('4' in a) or ('5' in a) or ('6' in a) or ('7' in a) or ('8' in a) or ('9' in a) or ('0' in a ):
@@ -319,20 +299,36 @@ def HomePage1():
     # sent = json.dumps(data)
     # # result = firebase.post("/User", c)
     # result = firebase.put("/", data)
+    auth= firebase2.auth()
+    check=0
 
-    result = firebase1.put("User",c,{'Name': a, 'Password': d, 'email': b})
-    return render_template('login.html', us=err7)
+    try:
+        user=auth.sign_in_with_email_and_password("admin@servx.pk", admin_key)
+        check=1
+    except:
+        check=0
+
+
+    if check==1:
+     result = firebase1.put("User",c,{'name': a, 'email': b, 'isAdmin':'1'})
+     return render_template('login.html', us=err7)
+    return render_template('signup.html', us='Please Enter the correct Admin Key')
 
 
 @app.route("/")
 def index():
 
     return render_template('login.html')
-@app.route("/customers",methods=['GET', 'POST'])
+@app.route("/customers")
 def customers():
     #post= firebase.get('/User', None)
     #return post.Name
     #return render_template('customers.html', posts=posts)
+  
+  if 'user' in session:
+      
+            
+    
 
     c=" "
     i=","
@@ -361,9 +357,12 @@ def customers():
 
 
     return render_template('customers.html', posts=posts)
-
+  else:
+      return render_template('login.html')
 @app.route("/history", methods=['GET', 'POST'])
 def History():
+  if 'user' in session:
+
     r=firebase1.get('/requests',None)
     rkeys= r.keys()
     c=firebase1.get('/Packages',None)
@@ -405,8 +404,7 @@ def History():
             oilbr=int (s) 
           
 
-
-
+  
 
   #pos=[{'status':''}]
     for i in range(len(r)):
@@ -448,6 +446,9 @@ def History():
                 totalbill=0
 
     return render_template('history.html', posts=hists)
+  else:
+      return render_template('login.html')
+
 
 
 
