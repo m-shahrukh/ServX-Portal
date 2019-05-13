@@ -361,7 +361,7 @@ def customers():
     return render_template('customers.html', posts=posts)
   else:
       return render_template('login.html')
-@app.route("/history", methods=['GET', 'POST'])
+@app.route("/history")
 def History():
   if 'user' in session:
 
@@ -460,4 +460,4 @@ def History():
 
 if __name__ == "__main__":
     #main()
-    app.run(debug=True)
+    app.run(debug=False)
