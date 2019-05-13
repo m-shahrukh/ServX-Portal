@@ -419,8 +419,8 @@ def History():
                     if n==None: 
                         n=q[key].get('name')
             #print n
-            if j!='"0"': 
-                s= r[rkeys[i]][j].get('status')
+            if j!='"0"' and r[rkeys[i]][j].get('status')=='accept': 
+                s= 'Accepted'
                 s1=r[rkeys[i]][j]['date']
                 s2=r[rkeys[i]][j]['location']
                 s3=r[rkeys[i]][j]['oil']
