@@ -310,6 +310,7 @@ def HomePage1():
 
 
     if check==1:
+     auth.create_user_with_email_and_password(b,d)
      result = firebase1.put("User",c,{'name': a, 'email': b, 'isAdmin':'1'})
      return render_template('login.html', us=err7)
     return render_template('signup.html', us='Please Enter the correct Admin Key')
