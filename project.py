@@ -178,7 +178,7 @@ def Requestpage1():
 
 
     decision=[]
-    reqs.sort(key= lambda x:x.requestID, reverse=True)
+    reqs.sort(key= lambda x:x.requestID, reverse=False)
 
     for i in range(len(reqs)):
 
