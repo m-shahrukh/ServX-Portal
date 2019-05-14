@@ -1,5 +1,5 @@
-from flask import Flask, render_template, json, request, session, escape
 from firebase import firebase
+from flask import Flask, render_template, json, request, session, escape
 import pyrebase
 import copy
 
@@ -334,6 +334,7 @@ def customers():
     c=" "
     i=","
     j=0
+    n=""
     q=firebase1.get("/User",None)
     for key in q.keys(): 
         if q[key].get('isAdmin')=='1': 
@@ -357,9 +358,10 @@ def customers():
         c=""
         lsls=""
 
+        
+    newlist=sorted(posts, key=lambda k: k['customer_name'])
 
-
-    return render_template('customers.html', posts=posts)
+    return render_template('customers.html', posts=newlist)
   else:
       return render_template('login.html')
 @app.route("/history")
