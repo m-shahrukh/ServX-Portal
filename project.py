@@ -34,9 +34,8 @@ user_tok=None
 
 
 
-global length_requests
-posts  = []
-hists=[]
+
+
 
 
 @app.route("/signuppage")
@@ -330,7 +329,8 @@ def customers():
     #return render_template('customers.html', posts=posts)
   
   if 'user' in session:
-      
+    posts  = []
+
             
     
 
@@ -371,7 +371,7 @@ def customers():
 @app.route("/history")
 def History():
   if 'user' in session:
-
+    hists=[]
     r=firebase1.get('/requests',None)
     rkeys= r.keys()
     c=firebase1.get('/Packages',None)
@@ -457,7 +457,8 @@ def History():
                 bill1=0
                 bill=0
                 totalbill=0
-    newlist=sorted(hists, key=lambda k: k['rID'], reverse=True)          
+    newlist=sorted(hists, key=lambda k: k['rID'], reverse=True)   
+    #return str(len(newlist))
     return render_template('history.html', posts=newlist)
   else:
       return render_template('login.html')
