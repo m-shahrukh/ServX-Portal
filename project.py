@@ -359,8 +359,7 @@ def customers():
         lsls=""
 
         
-    newlist=sorted(posts, key=lambda k: k['customer_name'])
-
+    newlist=sorted(posts, key=lambda k: k['customer_name'])  ##upper case listings first, and then the lower case ones. 
     return render_template('customers.html', posts=newlist)
   else:
       return render_template('login.html')
@@ -449,12 +448,12 @@ def History():
                 s5=r[rkeys[i]][j]['time']
                 #pos.append({'status': s})
                 
-                hists.append({'customer_name': n, 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
+                hists.append({'rID':j,'customer_name': n, 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
                 bill1=0
                 bill=0
                 totalbill=0
-
-    return render_template('history.html', posts=hists)
+    newlist=sorted(hists, key=lambda k: k['rID'], reverse=True)          
+    return render_template('history.html', posts=newlist)
   else:
       return render_template('login.html')
 
