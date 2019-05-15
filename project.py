@@ -345,12 +345,14 @@ def customers():
         e=q[key].get('email')
         v= q[key].get('vehicle')
         if v!=None: 
-            for keys in v.keys():
+            for vkeys, value in v.items():
                 j=j+1
                 if j>1: 
-                    c=c+" , "+ keys
+                    c=c+" , "+ vkeys +"("+ value.get('vmake') + "," + value.get('vyear') +"," + value.get('vmodel') + ")"
                 else: 
-                    c=c+ keys
+                    c=c+ vkeys + "("+ value.get('vmake') + "," + value.get('vyear') +"," + value.get('vmodel') + ")"
+        if v==None: 
+            c="Not added yet"
         m= key
         j=0
 
