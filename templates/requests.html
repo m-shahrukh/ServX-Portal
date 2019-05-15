@@ -121,6 +121,11 @@ h2 span {
   <form >
     <h1 style="margin-top: 7px;margin-left: 52px; font-family: Segoe UI;">Requests</h1>
 
+    {% if length_numbers==0 %}
+    <p style="font-family: Segoe UI;margin-left: 54px; font-size: 16px"> All requests have been responded </p>
+    {% endif %}
+
+
 {% for i,x in enumerate(reqs) %}
 <p style="font-family: Segoe UI; font-size: 13px" id="rcorners4">
 
@@ -141,8 +146,11 @@ Time: {{x.time}}
 <!-- <input type="submit" name="button">  -->
 
  {% endfor %}
+
+ {% if length_numbers!=0 %}
  <div style="margin-left:-55px;">
 <input type="submit" value="Submit" name= "inp1" id="input1" formaction="/requests1" formmethod="post">
+{% endif %}
 
 </div>
 </form>

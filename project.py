@@ -1,5 +1,5 @@
 from firebase import firebase
-from flask import Flask, render_template, json, request, session, escape
+from flask import Flask, render_template, json, request, session, escape,redirect, url_for
 import pyrebase
 import copy
 
@@ -137,17 +137,19 @@ def Requestpage():
         reqs[i].requestID=req_IDs[i]
         #req_IDs[i]=reqs[i].requestID
 
-    reqs.sort(key= lambda x: x.requestID, reverse=True)
+    reqs.sort(key= lambda x: x.requestID, reverse=False)
 
 
 
 
 
     #return "<h1>%s</h1"%str(reqs[0].requestID)
-    return render_template('requests.html',reqs=reqs, enumerate= enumerate)
+    return render_template('requests.html',reqs=reqs, enumerate= enumerate,length_numbers=length_numbers)
     #return render_template('requests.html', numbers=numbers, time=time,length_numbers=length_numbers,date=date,oil=oil,wash=wash,location=location)
   else:
       return render_template('login.html')
+
+
 @app.route("/requests1", methods=['POST'])
 def Requestpage1():
 
@@ -207,9 +209,10 @@ def Requestpage1():
             
 
 
-    #return "<h1>%s</h1>"%str(decision)
-    # return render_template('home.html', msg="Decisions sent!")
-    return render_template('requests.html',reqs=reqs, enumerate= enumerate)
+    # return "<h1>%s</h1>"%str(decision)
+    #return render_template('home.html', msg="Decisions sent!")
+    return redirect(url_for('Requestpage'))
+    # return render_template('requests.html',reqs=reqs, enumerate= enumerate)
     
 
 
