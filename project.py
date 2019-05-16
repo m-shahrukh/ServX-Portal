@@ -287,10 +287,11 @@ def Requestpage1():
 def HomePage():
     
     unsuccessful = 'Mobile number or password is invalid.'
-
+    
     if request.method== 'GET':
         if 'user' in session:
-            return render_template('home.html')
+            return redirect(url_for('Home'))
+            #return render_template('home.html')
         else:
             return render_template('login.html')
     a=request.form.get('user', None)
@@ -308,13 +309,17 @@ def HomePage():
      user= auth.sign_in_with_email_and_password(email, b)
      #user_tok=auth.get_account_info(user['idToken'])
      session['user']=a
-     return render_template('home.html')
+     return redirect(url_for('Home'))
+     #return render_template('home.html')
     except:
         user=None
         return render_template('login.html', us=unsuccessful )
 
 
-    
+@app.route("/home")
+def Home():
+    return render_template('home.html')
+
 @app.route("/logout")
 def logout():
     session.pop('user',None)
@@ -542,4 +547,4 @@ def History():
 
 if __name__ == "__main__":
     #main()
-    app.run(debug=False)
+    app.run(debug=True)
