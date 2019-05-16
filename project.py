@@ -490,11 +490,16 @@ def History():
                     if n==None: 
                         n=q[key].get('name')
             #print n
-            if j!='"0"' and r[rkeys[i]][j].get('status')!='pending': 
+            #if (j=="106"):
+            #    return str(r[rkeys[i]][j].get('status'))
+            stat=r[rkeys[i]][j].get('status')
+            if j!='"0"' and (stat!='Pending' and stat!='Pending'):
+                #return str(r[rkeys[i]][j]) 
                 s= r[rkeys[i]][j].get('status')
-                s1=r[rkeys[i]][j]['date']
-                s2=r[rkeys[i]][j]['location']
-                s3=r[rkeys[i]][j]['oil']
+                
+                s1=r[rkeys[i]][j].get('date')
+                s2=r[rkeys[i]][j].get('location')
+                s3=r[rkeys[i]][j].get('oil')
                 if s3=='Gold' or s3=='gold':
                   bill=oilgold
                 if s3== "" :
@@ -503,7 +508,7 @@ def History():
                   bill= oilsilver
                 if s3=='Bronze' or s3=='bronze': 
                   bill==oilbr
-                s4=r[rkeys[i]][j]['wash']
+                s4=r[rkeys[i]][j].get('wash')
                 if s4== "": 
                     s4="Not Selected"
                 if s4=='Gold' or s4== 'gold':
@@ -514,7 +519,7 @@ def History():
                   bill1=washbr
 
                 totalbill= int(bill)+ int(bill1)
-                s5=r[rkeys[i]][j]['time']
+                s5=r[rkeys[i]][j].get('time')
                 #pos.append({'status': s})
                 
                 hists.append({'rID':j,'customer_name': n, 'total_cost':totalbill,'location':s2,'oil':s3,'wash':s4,'date':s1,'time':s5, 'status': s})
@@ -532,4 +537,4 @@ def History():
 
 if __name__ == "__main__":
     #main()
-    app.run(debug=False)
+    app.run(debug=True)
