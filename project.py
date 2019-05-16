@@ -188,8 +188,8 @@ def Requestpage1():
     mobile_keys=requests.keys()
     # keys_person= requests[mobile_keys[0]].keys()
     reqs=[]
-    req_ID_strs=[]
-    dict_reqs=[]
+    req_ID_strs={}
+    dict_reqs={}
 
     for i in range(len(mobile_keys)):
 
@@ -198,20 +198,24 @@ def Requestpage1():
             if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
                 numbers.append(mobile_keys[i])
                 #req_ID= int(j[1:len(j)-1])
-                req_ID_strs.append(j)
+                
                 req_ID= j.replace("'","")
                 req_ID=req_ID.replace('"',"")
                 req_ID=int(req_ID)
+                req_ID_strs[req_ID]=j
                 re=req()
                 re.requestID=(req_ID)
                 re.numbers=mobile_keys[i]
                 reqs.append(re)
-                dict_reqs.append(requests[mobile_keys[i]])
+                dict_reqs[mobile_keys[i]] =requests[mobile_keys[i]]
 
 
 
     decision=[]
     reqs.sort(key= lambda x:x.requestID, reverse=False)
+    #req_ID_strs.sort(key= lambda x: x.keys(), reverse= False)
+    #return str(dict_reqs)
+    
 
     for i in range(len(reqs)):
 
@@ -251,14 +255,14 @@ def Requestpage1():
                     # print req_ID_strs[i]
                     # return req_ID_strs[i]
                     #j='"%s"'%str(reqs[i].requestID)
-                    j=req_ID_strs[i]
+                    j=req_ID_strs[reqs[i].requestID]
                     #return j
                     # firebase1.put('requests/'+reqs[i].numbers+'/'+j,'status',decision[i])
                     # return "<h1>%s</h1>"%str(dict_reqs[i])
-                    dict_reqs[i][j]['status']=decision[i]
+                    dict_reqs[reqs[i].numbers][j]['status']=decision[i]
                     # return "<h1>%s</h1>"%str(dict_reqs[i])
                     
-                    firebase1.put("requests", reqs[i].numbers, dict_reqs[i])
+                    firebase1.put("requests", reqs[i].numbers, dict_reqs[reqs[i].numbers])
                     #send_push_notifcation([reqs[i].numbers])
         # keys_person= requests[reqs[i].numbers].keys()
     for x in numbers_to_send:
