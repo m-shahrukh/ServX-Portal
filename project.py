@@ -530,7 +530,7 @@ def History():
                 bill1=0
                 bill=0
                 totalbill=0
-    newlist=sorted(hists, key=lambda k: k['rID'], reverse=True)   
+    newlist=sorted(hists, key=lambda k: k.get('rID'), reverse=True)   
     #return str(len(newlist))
     return render_template('history.html', posts=newlist)
   else:
@@ -541,4 +541,4 @@ def History():
 
 if __name__ == "__main__":
     #main()
-    app.run(debug=True)
+    app.run(debug=False)
