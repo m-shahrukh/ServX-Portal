@@ -250,7 +250,7 @@ def Requestpage1():
                     # return req_ID_strs[i]
                     #j='"%s"'%str(reqs[i].requestID)
                     j=req_ID_strs[i]
-
+                    return j
                     firebase1.put('requests/'+reqs[i].numbers+'/'+j,'status',decision[i])
                     #send_push_notifcation([reqs[i].numbers])
         # keys_person= requests[reqs[i].numbers].keys()
