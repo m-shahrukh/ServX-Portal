@@ -2,6 +2,8 @@ from firebase import firebase
 from flask import Flask, render_template, json, request, session, escape,redirect, url_for
 import pyrebase
 import copy
+from pusher_push_notifications import PushNotifications 
+
 
 config={
     "apiKey": "AIzaSyDSc5--FWUQkRLp8WArAPxKtCJxMAYawPk",
@@ -11,6 +13,26 @@ config={
     "storageBucket": "servx-f0d70.appspot.com",
     "messagingSenderId": "1048415000509"
 }
+
+beams_client = PushNotifications(
+instance_id='ea347389-aee7-4445-9b14-15cd0fe885f4',
+secret_key='9272AAB0EA36F577C6AA861B2BFB5C0A329DC8561382D4F16661ADFC9541C7B4'
+)
+
+
+def send_push_notifcation(users, title, message):
+   response = beams_client.publish(
+   #interests=['03369696969'],
+  interests=copy.deepcopy(users),
+  publish_body={
+    'fcm': {
+      'notification': {
+        'title': title,
+        'body': message,
+      },
+    },
+  },
+)
 
 class req:
     
@@ -76,10 +98,13 @@ def Requestpage():
 
         keys_person= requests[mobile_keys[i]].keys() #requestIds
         for j in keys_person:
-            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
+            if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
                 a=requests[mobile_keys[i]][j]['date']
                 numbers.append(mobile_keys[i])
-                req_ID= int(j[1:len(j)-1])
+                #req_ID= int(j[1:len(j)-1])
+                req_ID= j.replace("'","")
+                req_ID=req_ID.replace('"',"")
+                req_ID=int(req_ID)
                 req_IDs.append(req_ID)
                 date.append(a)
 
@@ -87,7 +112,7 @@ def Requestpage():
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
+            if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
 
                 a=requests[mobile_keys[i]][j]['time']
                 #req.time=a
@@ -100,7 +125,7 @@ def Requestpage():
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
+            if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
                 a=requests[mobile_keys[i]][j]['oil']
                 #req.oil=a
                 oil.append(a)
@@ -110,7 +135,7 @@ def Requestpage():
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
+            if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
                 a=requests[mobile_keys[i]][j]['wash']
                 #req.wash=a
                 wash.append(a)
@@ -119,7 +144,7 @@ def Requestpage():
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
+            if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
                 a=requests[mobile_keys[i]][j]['location']
                 #req.location=a
                 location.append(a)
@@ -141,7 +166,7 @@ def Requestpage():
 
 
 
-
+    #return str(len(reqs))
     #return "<h1>%s</h1"%str(reqs[0].requestID)
     return render_template('requests.html',reqs=reqs, enumerate= enumerate,length_numbers=length_numbers)
     #return render_template('requests.html', numbers=numbers, time=time,length_numbers=length_numbers,date=date,oil=oil,wash=wash,location=location)
@@ -163,14 +188,19 @@ def Requestpage1():
     mobile_keys=requests.keys()
     # keys_person= requests[mobile_keys[0]].keys()
     reqs=[]
+    req_ID_strs=[]
 
     for i in range(len(mobile_keys)):
 
         keys_person= requests[mobile_keys[i]].keys()
         for j in keys_person:
-            if j!='"0"' and requests[mobile_keys[i]][j]['status']=='pending':
+            if j!='"0"' and (requests[mobile_keys[i]][j]['status']=='pending' or requests[mobile_keys[i]][j]['status']=='Pending'):
                 numbers.append(mobile_keys[i])
-                req_ID= int(j[1:len(j)-1])
+                #req_ID= int(j[1:len(j)-1])
+                req_ID_strs.append(j)
+                req_ID= j.replace("'","")
+                req_ID=req_ID.replace('"',"")
+                req_ID=int(req_ID)
                 re=req()
                 re.requestID=(req_ID)
                 re.numbers=mobile_keys[i]
@@ -192,14 +222,40 @@ def Requestpage1():
 
     #return "<h1>%s</h1>"%str(decision)
     #return render_template('home.html', msg="decisions sent!")
+    numbers_to_send=[]
+    message_to_send={}
+    # for x in reqs:
+    #     if x in numbers_to_send:
+    #         message_to_send[x]={"title":"Your requests have been processed",
+    #                             "message":"Please check Service History!"}
+    #     else:
+    #         numbers_to_send.append(x)
+    #         message_to_send[x]={"title":"Your request have been processed",
+    #                             "message":"Please check Service History!"}
 
+        
 
     index=0
     for i in range(len(reqs)):
         if decision[i]!=None:
-                    j='"%s"'%str(reqs[i].requestID)
+                    if reqs[i].numbers in numbers_to_send:
+                        message_to_send[reqs[i].numbers]={"title":"Your requests have been processed",
+                                "message":"Please check Service History!"}
+                    else:
+                      numbers_to_send.append(reqs[i].numbers)
+                      message_to_send[reqs[i].numbers]={"title":"Your request have been processed",
+                                "message":"Please check Service History!"}
+
+                    # print req_ID_strs[i]
+                    # return req_ID_strs[i]
+                    #j='"%s"'%str(reqs[i].requestID)
+                    j=req_ID_strs[i]
+
                     firebase1.put('requests/'+reqs[i].numbers+'/'+j,'status',decision[i])
+                    #send_push_notifcation([reqs[i].numbers])
         # keys_person= requests[reqs[i].numbers].keys()
+    for x in numbers_to_send:
+        send_push_notifcation([x], message_to_send[x]['title'], message_to_send[x]['message'])
         # for j in keys_person:
         #     if j!='"0"':
         #         if decision[i]!=None:
@@ -468,4 +524,4 @@ def History():
 
 if __name__ == "__main__":
     #main()
-    app.run(debug=False)
+    app.run(debug=True)
