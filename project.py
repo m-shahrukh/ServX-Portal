@@ -484,6 +484,7 @@ def History():
   
 
   #pos=[{'status':''}]
+    n=None
     for i in range(len(r)):
 
         keys_person= r[rkeys[i]].keys()
