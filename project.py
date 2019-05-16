@@ -189,6 +189,7 @@ def Requestpage1():
     # keys_person= requests[mobile_keys[0]].keys()
     reqs=[]
     req_ID_strs=[]
+    dict_reqs=[]
 
     for i in range(len(mobile_keys)):
 
@@ -205,6 +206,7 @@ def Requestpage1():
                 re.requestID=(req_ID)
                 re.numbers=mobile_keys[i]
                 reqs.append(re)
+                dict_reqs.append(requests[mobile_keys[i]])
 
 
 
@@ -251,7 +253,12 @@ def Requestpage1():
                     #j='"%s"'%str(reqs[i].requestID)
                     j=req_ID_strs[i]
                     #return j
-                    firebase1.put('requests/'+reqs[i].numbers+'/'+j,'status',decision[i])
+                    # firebase1.put('requests/'+reqs[i].numbers+'/'+j,'status',decision[i])
+                    # return "<h1>%s</h1>"%str(dict_reqs[i])
+                    dict_reqs[i][j]['status']=decision[i]
+                    # return "<h1>%s</h1>"%str(dict_reqs[i])
+                    
+                    firebase1.put("requests", reqs[i].numbers, dict_reqs[i])
                     #send_push_notifcation([reqs[i].numbers])
         # keys_person= requests[reqs[i].numbers].keys()
     for x in numbers_to_send:
@@ -266,6 +273,7 @@ def Requestpage1():
 
     # return "<h1>%s</h1>"%str(decision)
     #return render_template('home.html', msg="Decisions sent!")
+    # return dict_reqs[i] 
     return redirect(url_for('Requestpage'))
     # return render_template('requests.html',reqs=reqs, enumerate= enumerate)
     
